@@ -36,7 +36,7 @@ After the install finishes, open VSCode; your screen should now resemble this: (
 
 For anyone using Windows, you have an extra step: downloading/activating OpenSSH. Click the OpenSSH link above and you'll be taken to a Microsoft page; scroll down to this section and follow the instructions:
 
-![OpenSSH install instructions](openssh%20install%20instructions.png)
+![OpenSSH install instructions](./Lab%20Report%201%20Screenshots/openssh%20install%20instructions.png)
 
 
 
@@ -84,7 +84,7 @@ The first time you connect to the server, you'll see a warning mentioning "authe
 
 You should receive a password prompt; enter your password and successfully log in, your screen will fill up with information about usage information that'll look like this:
 
-![log in output on terminal](ssh%20login%20output.png)
+![log in output on terminal](/Lab%20Report%201%20Screenshots/ssh%20login%20output.png)
 * *Note:* Password prompts will **NOT** show any characters as you type. Even though it looks like nothing's happening, the terminal will log what you type.
 
 * If you run into issues logging into your `ieng6` account, try resetting your `cse15l` account password again and wait 15-30 minutes. If you still have issues, reach out to your professor or TAs.
