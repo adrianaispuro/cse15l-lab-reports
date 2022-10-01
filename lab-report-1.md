@@ -28,7 +28,7 @@ Go to the VSCode website linked above and download the version compatible with y
 
 After the install finishes, open VSCode; your screen should now resemble this: (The format/color theme may vary depending on device)
 
-![Visual Studio Code startup page](./vscode%20startup.png)
+![Visual Studio Code startup page](./Lab%20Report%201%20Screenshots/vscode%20startup.png)
 
 *** 
 
@@ -46,11 +46,11 @@ For anyone using Windows, you have an extra step: downloading/activating OpenSSH
 
 Next, go the Account Lookup page linked above and you'll be greeted by a page that should look like this:
 
-![Account Lookup login page](./account%20lookup%20login.png)
+![Account Lookup login page](./Lab%20Report%201%20Screenshots/account%20lookup%20login.png)
 
 Enter your login information, then click "Submit Query". If the login succeeded, you'll see something like the following:
 
-![Account Lookup result page](./account%20lookup%20page.png)
+![Account Lookup result page](./Lab%20Report%201%20Screenshots/account%20lookup%20page.png)
 
 You should notice a clickable button under "Additional Accounts" with text that looks like "`cs15lXXXXXX`". This is your account specifically made for this course. 
 
@@ -58,7 +58,7 @@ You should notice a clickable button under "Additional Accounts" with text that 
 
 Click on the button, and the web should take you here:
 
-![CS15L account page](./CS15L%20account%20page.png)
+![CS15L account page](./Lab%20Report%201%20Screenshots/CS15L%20account%20page.png)
 
 Since this is your first time accessing this account, you'll probably see an alert to reset your password. Go ahead and click through and reset your password.
 
@@ -108,7 +108,7 @@ Here are a few useful commands you can try:
 
 After running some commands, your <font color = "green">terminal</font> should resemble this: 
 
-![terminal](./terminal%20commands.png)
+![terminal](./Lab%20Report%201%20Screenshots/terminal%20commands.png)
 
 ***
 
@@ -137,18 +137,18 @@ Save the file, then open a new <font color = "0c7bdc">terminal</font> on VSCode 
 
 You should receive a password prompt; log in as you would with `ssh`. Once the password is entered, you should see something like this:
 
-![Using scp to upload file](./scp%20command.png)
+![Using scp to upload file](./Lab%20Report%201%20Screenshots/scp%20command.png)
 * I don't have a password prompt because I have a SSH key set up (more on that later)
 
 If you have Java installed, try compiling and running the file and note its output; we'll compare results later.
 
 Now that my Java file was uploaded, let's log back into <font color = "green">the terminal connected to the server</font> to see if it's there using command `ls`:
 
-![Terminal now shows my Java file on the server](./scp%20HDAT%20success.png)
+![Terminal now shows my Java file on the server](./Lab%20Report%201%20Screenshots/scp%20HDAT%20success.png)
 
 Success! Since I made a Java file, let's compile and run the program to see what it prints out: 
 
-![Java file compiles and runs](./HDAT%20compile%20run%20and%20output.png)
+![Java file compiles and runs](./Lab%20Report%201%20Screenshots/HDAT%20compile%20run%20and%20output.png)
 
 Since we have the file on both <font color="0c7bdc"> the client</font> and <font color="green">the server</font>, compare the results of running the program on both machines. 
 
@@ -166,7 +166,7 @@ On <font color = "0c7bdc">your computer's terminal</font>, type in the following
 
 You'll see the terminal fill with text similar to this: 
 
-![SSH-keygen process](./ssh%20keygen%20on%20local%20terminal.png)
+![SSH-keygen process](./Lab%20Report%201%20Screenshots/ssh%20keygen%20on%20local%20terminal.png)
 
 * In this example, we already created a key, so the terminal asks to overwrite the existing key; on your computer, you will not see this.
 
@@ -174,7 +174,7 @@ The terminal will prompt you to enter a path to save the keys to; for this tutor
 
 * *Extra step for Windows users:* You will need to run additional commands on your computer's terminal to use your private key. Open [this link](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement#user-key-generation), scroll down and run the commands listed here:
 
-![ssh-agent commands](./windows%20ssh-agent%20commands.png)
+![ssh-agent commands](./Lab%20Report%201%20Screenshots/windows%20ssh-agent%20commands.png)
 * **IMPORTANT NOTE:** On the line with the `ssh-add` command, change `id_ed25519` to `id_rsa`; ED25519 is a different encryption algorithm that we will not cover in this tutorial.
 
 Now that we have our new keys, we need to copy the *public* key to the server.
@@ -182,12 +182,12 @@ Now that we have our new keys, we need to copy the *public* key to the server.
 On the <font color="green">terminal connected to the server</font>, we need to make a new directory to store the public key. Enter the following command:
 `mkdir .ssh` like this: 
 
-![Make directory on remote terminal](./make%20ssh%20directory%20on%20remote%20terminal.png)
+![Make directory on remote terminal](./Lab%20Report%201%20Screenshots/make%20ssh%20directory%20on%20remote%20terminal.png)
 * We already made the directory `.ssh` in this instance; if the directory doesn't exist, the terminal will create it. You can verify this with `ls`.
 
 On the <font color="0c7bdc">terminal on your computer</font>, use `scp` to copy the public key to the directory you just made on the server:
 
-![copy key from local terminal to remote terminal](./scp%20key%20on%20local%20terminal.png)
+![copy key from local terminal to remote terminal](./Lab%20Report%201%20Screenshots/scp%20key%20on%20local%20terminal.png)
 
 If done successfully, you should be able to `scp` and `ssh` without having to enter your password. How convenient!
 
