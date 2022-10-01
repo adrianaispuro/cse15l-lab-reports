@@ -69,10 +69,7 @@ Since this is your first time accessing this account, you'll probably see an ale
 
 ## Step 3a: Making a Remote Connection
 
-* From this point on, I'll specify where to make commands. For terminal commands on the client (the computer physically in front of you) I'll use 
-<font color = "0c7bdc">the color blue.</font>
-For terminal commands on the server (the computer you're connecting to over the Internet) I'll use 
-<font color = "green"> the color green.</font>
+* From this point on, I'll specify where to make commands. For terminal commands on the client (the computer physically in front of you) I'll use <font color = "0c7bdc">the color blue.</font> For terminal commands on the server (the computer you're connecting to over the Internet) I'll use <font color = "green"> the color green.</font>
 
 On 
 <font color = 0c7bdc>your computer</font>, start VSCode and open a new terminal.
@@ -93,8 +90,7 @@ Once you enter your password and successfully log in, your screen will fill up w
 
 * If you run into issues logging into your `ieng6` account, try resetting your `cse15l` account password again and wait 15-30 minutes. If you still have issues, reach out to your professor or TAs.
 
- Otherwise, if you've made it this far, congrats! You connected your terminal to the server; now we can use some commands on the terminal to access files on
-<font color = "orange">the server.</font>
+ Otherwise, if you've made it this far, congrats! You connected your terminal to the server; now we can use some commands on the terminal to access files on <font color = "orange">the server.</font>
 
 
 
