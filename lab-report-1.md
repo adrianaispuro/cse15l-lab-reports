@@ -69,10 +69,10 @@ Since this is your first time accessing this account, you'll probably see an ale
 
 ## Step 3a: Making a Remote Connection
 
-* From this point on, I'll specify where to make commands. For terminal commands on the client (the computer physically in front of you) I'll use <font color = "0c7bdc">the color blue.</font> For terminal commands on the server (the computer you're connecting to over the Internet) I'll use <font color = "green"> the color green.</font>
+* From this point on, I'll specify where to make commands. For terminal commands on the client (the computer physically in front of you) I'll use <font color = "0c7bdc"> the color blue.</font> For terminal commands on the server (the computer you're connecting to over the Internet) I'll use <font color = "green"> the color green.</font>
 
 On 
-<font color = 0c7bdc>your computer</font>, start VSCode and open a new terminal.
+<font color = "0c7bdc">your computer</font>, start VSCode and open a new terminal.
 
 * Click the "New Terminal" option in the "Terminal" menu or use keyboard shortcut `` CTRL + ` `` or ``command + ` ``, depending on your system.
 
@@ -84,9 +84,10 @@ In the terminal, type the following command and press `enter`:
 
 The first time you connect to the server, you'll see a warning mentioning "authenticity can't be established"; this is expected, go ahead and type `yes` and press `enter`.
 
-Once you enter your password and successfully log in, your screen will fill up with information about usage information that'll look like this:
+You should receive a password prompt; enter your password and successfully log in, your screen will fill up with information about usage information that'll look like this:
 
 ![log in output on terminal](ssh%20login%20output.png)
+* *Note:* Password prompts will **NOT** show any characters as you type. Even though it looks like nothing's happening, the terminal will log what you type.
 
 * If you run into issues logging into your `ieng6` account, try resetting your `cse15l` account password again and wait 15-30 minutes. If you still have issues, reach out to your professor or TAs.
 
@@ -97,7 +98,63 @@ Once you enter your password and successfully log in, your screen will fill up w
 ***
 ## Step 3b: Run Some Commands
 
+Now that you're remotely connected, try running a couple commands on both <font color = "0c7bdc"> your computer's terminal </font> and <font color = "orange"> the terminal connected to the server</font>.
 
+Here are a few useful commands you can try:
+* `ls`: prints the contents of the current directory (plain text denotes files, blue text denotes directories)
+* `pwd`: prints the path to the current directory
+* `cd PATH`: changes the current directory to the directory at path PATH
+* `cd ~`: returns to the current user's home directory
+* `cp FILEPATH DESTINATIONPATH`: copies the file at FILEPATH to the directory at DESTINATIONPATH 
+* `exit`: logs out of `ieng6`
 
+After running some commands, your <font color = "orange">terminal</font> should resemble this: 
 
+![terminal](./terminal%20commands.png)
+
+***
+
+## Step 4. Moving/Copying Files over SSH
+
+Once you've made a remote connection, one of the most powerful things you can learn is how to transfer files between the client (<font color ="0c7bdc">your computer</font>) and <font color = "orange">the server</font>. In this step, we'll cover how to use the command `scp`.
+
+On <font color = "0c7bdc"> your computer</font>, create a file and fill it with any text you want;
+for this example, I'll make a Java file called `HelloDateAndTime.java` with the following code: 
+```java
+ import java.time.*;
+class HelloDateAndTime {
+	public static void main(String[] args) {
+		System.out.println("Hello World!");
+		System.out.println("OS: " + System.getProperty("os.name"));
+		System.out.println("User name: " + System.getProperty("user.name"));
+		System.out.println("Date and Time: " + java.time.LocalDateTime.now());
+	}
+}	
+```
+Save the file, then open a new <font color = "0c7bdc">terminal</font> on VSCode and run the following command:
+
+`scp HelloDateAndTime.java cs15lXXXXXX@ieng6.ucsd.edu:~/`
+
+* IMPORTANT: Make sure you include the `:~/` at the end of your `ieng6` username as this specifies where to send a copy of the file; without it, the file will **not** copy to <font color = "orange">the server</font>.
+
+You should receive a password prompt; log in as you would with `ssh`. Once the password is entered, you should see something like this:
+
+![Using scp to upload file](./scp%20command.png)
+* I don't have a password prompt because I have a SSH key set up (more on that later)
+
+If you have Java installed, try compiling and running the file and note its output; we'll compare results later.
+
+Now that my Java file was uploaded, let's log back into <font color = "orange">the terminal connected to the server</font> to see if it's there using command `ls`:
+
+![Terminal now shows my Java file on the server](./scp%20HDAT%20success.png)
+
+Success! Since I made a Java file, let's compile and run the program to see what it prints out: 
+
+![Java file compiles and runs](./HDAT%20compile%20run%20and%20output.png)
+
+Since we have the file on both <font color="0c7bdc"> the client</font> and <font color="orange">the server</font>, compare the results of running the program on both machines. 
+
+***
+
+## Part 5: SSH Keys
 
