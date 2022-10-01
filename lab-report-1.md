@@ -36,7 +36,7 @@ After the install finishes, open VSCode; your screen should now resemble this: (
 
 For anyone using Windows, you have an extra step: downloading/activating OpenSSH. Click the OpenSSH link above and you'll be taken to a Microsoft page; scroll down to this section and follow the instructions:
 
-![OpenSSH install instructions](./Lab%20Report%201%20Screenshots/openssh%20install%20instructions.png)
+![OpenSSH install instructions !!](./Lab%20Report%201%20Screenshots/openssh%20install%20instructions.png)
 
 
 
