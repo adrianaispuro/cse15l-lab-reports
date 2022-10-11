@@ -10,5 +10,5 @@ Here's what we need to do this quarter:
 
 Here are lab reports I've created:
 
-* [Lab Report 0 (Week 0)](./lab-report-1-week-0.html)
-* [Lab Report 1 (Week 1)](./lab-report-1.html)
+* [Lab Report 0 (Week 0)](./week-0-lab-report.html)
+* [Lab Report 1 (Week 1)](Lab%20Report%201/lab-report-1.html)
