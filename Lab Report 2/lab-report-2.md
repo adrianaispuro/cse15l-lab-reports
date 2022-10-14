@@ -14,11 +14,11 @@ import java.net.URI;
 import java.util.Vector;
 
 class Handler implements URLHandler {
-        // The one bit of state on the server: a number that will be manipulated by
-        // various requests.
+        // Vector of strings that will contain all the words we add
         Vector<String> stringList = new Vector<String>();
-    
         public String handleRequest(URI url) {
+
+            // If the URL doesn't have any arguments, load home page
             if (url.getPath().equals("/")) {
                 return String.format("Ready to search!");
             } 
@@ -26,14 +26,21 @@ class Handler implements URLHandler {
                 System.out.println("Path: " + url.getPath());
                 if (url.getPath().contains("/add")) {
                     String[] parameters = url.getQuery().split("=");
+
+                        // Add the string we included in the argument (parameters[0] = "?s")
                         stringList.add(parameters[1]);
                         return String.format("New word added: %s", parameters[1]);
-                    
                 }
                 else if (url.getPath().contains("/search")) {
                     String[] parameters = url.getQuery().split("=");
+
+                    //Create a new vector to store words that match query
                     Vector<String> results = new Vector<String>();
+
+                        // Loop through every word in stringList and add each one to results
+                        // if the word matches the query
                         for (String s : stringList){
+                            // parameters[1] = query word, parameters[0] = tag "?s"
                             if (s.contains(parameters[1])){
                                 results.add(s);
                             }
@@ -51,9 +58,7 @@ class Handler implements URLHandler {
                 System.out.println("Missing port number! Try any number between 1024 to 49151");
                 return;
             }
-    
             int port = Integer.parseInt(args[0]);
-    
             Server.start(port, new Handler());
         }
     }
@@ -82,7 +87,7 @@ The page updates to show that "tomato" was added to our list!
 
 Here's what's happening in the background:
 * When we add the `/add?s=tomato` argument to the URL and press `enter`, we pass the new URL to the `handleRequest` method.
-* Within `handleRequest`, the URL catches our if statement looking for `/add` and splits our argument in two: `s` and `tomato`.
+* Within `handleRequest`, the URL catches the if statement looking for `/add` and splits our argument in two: `s` and `tomato`.
 * Then, the second argument (our new word; in this case "tomato") is added to `stringList`; the site updates to show the word was added.
 
 Let's add a couple more words before we make our first query:
@@ -105,6 +110,8 @@ How `/search?s=hi` works is similar to how `/add` works:
 * The method then splits our argument in two: `s` and any word after `=` (e.g. `hi`).
 * The method looks through every word in `stringList` for any word that contains/matches the second argument (our query word `hi`) and copies every matching word to a new list of Strings (`results`).
 * Once `stringList` has been fully read through, the method returns `results` and prints it on the site.
+
+Now we set up our simple search engine! We can add as many words as we want, and search within those words.
 
 #### Step 2
 Here is where to upload the screenshots from the lab on Thursday
