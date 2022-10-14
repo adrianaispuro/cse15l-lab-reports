@@ -58,7 +58,7 @@ class Handler implements URLHandler {
         }
     }
 ```
-Save the new file, then run and compile the code with the following commands
+Save the new file in the same directory as `Server.java`, then compile and run the code with the following commands:
 * `javac Server.java SearchEngine.java`
 * `java SearchEngine [port number (1024-49151)]`
 
@@ -67,11 +67,23 @@ You should see the following on your terminal:
 
 Now we have a local server running on our computer! This will run in the background on our computer until we cancel the command on the terminal by pressing `CTRL-C`.
 
-If we visit that URL on a web browser, we'll see this:
+Notice that we were given a localhost URL on the terminal. If we visit that URL on a web browser, we'll see this:
 ![Web page showing search online](search-online.png)
 
-By adding `/add?s=` to the end of our URL path, we can add "tomato" to a word list:
+Our search engine works by adding words to a list of Strings, then searching that list for words that match our query.
+
+First, let's add some words to our list: We can use the `/add?s=` argument at the end of the URL to add any word after the `=` to our list.
+
+For example, we can add "tomato" to our list by inserting `/add?s=tomato` to the end of the URL:
 ![Add tomato to word list](search-add.png)
+
+
+The page updates to show that "tomato" was added to our list!
+
+Here's what's happening in the background:
+* When we add the `/add?s=tomato` argument to the URL and press `enter`, we pass the new URL to the `handleRequest` method.
+* Within `handleRequest`, the URL catches our if statement looking for `/add` and splits our argument in two: `s` and `tomato`.
+* Then, the second argument (our new word; in this case "tomato") is added to `stringList`; the site updates to show the word was added.
 
 Let's add a couple more words before we make our first query:
 ![Add cherry to word list](search-add-cherry.png)
@@ -80,14 +92,19 @@ Let's add a couple more words before we make our first query:
 ![Add thick to word list](search-add-thick.png)
 ![Add think to word list](search-add-think.png)
 
-* In these screenshots, I added our new word to the end of our URL; this calls the `add` method in `SearchEngine` to add our new word to our list.
-* 
 
-Now, let's make our first query; we want to search our word list for every word with "hi" in it. For that, we'll replace `/add?s=` with `/search?s=` and our search query `hi`:
+Now, let's make our first query; we want to search our word list for every word with "hi" in it. 
 
-![Search query](search-query-hi.png)
+For that, we'll replace `/add?s=` with a new argument: `/search?s=hi`.
 
-The website now shows every word from our word list that matches our query!
+![Search query for "hi"](search-query-hi.png)
+
+How `/search?s=hi` works is similar to how `/add` works:
+* We update the URL passed to `handleRequest` method.
+* We catch the if statement looking for `/search` in our new URL.
+* The method then splits our argument in two: `s` and any word after `=` (e.g. `hi`).
+* The method looks through every word in `stringList` for any word that contains/matches the second argument (our query word `hi`) and copies every matching word to a new list of Strings (`results`).
+* Once `stringList` has been fully read through, the method returns `results` and prints it on the site.
 
 #### Step 2
 Here is where to upload the screenshots from the lab on Thursday
