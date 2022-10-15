@@ -1,13 +1,13 @@
 ## Lab Report 2 - Testing & Debugging
 
-#### Step 1: Simplest Search Engine
-
-Here's the code we'll need to run our simple search engine
-
-You'll need to download:
+Files we'll need for this report:
 * [Server.java](Server.java)
+* [ArrayExamples.java](ArrayExamples.java)
+* [ListExamples.java](ListExamples.java)
 
-Create a new file called `SearchEngine.java` and paste the following code:
+### Part 1: Simplest Search Engine
+
+Create a new file (We'll call ours `SearchEngine.java`) and paste the following code:
 ```java
 import java.io.IOException;
 import java.net.URI;
@@ -65,7 +65,7 @@ class Handler implements URLHandler {
 ```
 Save the new file in the same directory as `Server.java`, then compile and run the code with the following commands:
 * `javac Server.java SearchEngine.java`
-* `java SearchEngine [port number (1024-49151)]`
+* `java SearchEngine (pick a number between 1024-49151)`
 
 You should see the following on your terminal:
 ![Terminal showing search engine running on localhost](compile-and-run-searchengine.png)
@@ -91,10 +91,19 @@ Here's what's happening in the background:
 * Then, the second argument (our new word; in this case "tomato") is added to `stringList`; the site updates to show the word was added.
 
 Let's add a couple more words before we make our first query:
+* Add "cherry"
 ![Add cherry to word list](search-add-cherry.png)
+
+* Add "shill"
 ![Add shill to word list](search-add-shill.png)
+
+* Add "child"
 ![Add child to word list](search-add-child.png)
+
+* Add "thick"
 ![Add thick to word list](search-add-thick.png)
+
+* Add "think"
 ![Add think to word list](search-add-think.png)
 
 
@@ -113,5 +122,108 @@ How `/search?s=hi` works is similar to how `/add` works:
 
 Now we set up our simple search engine! We can add as many words as we want, and search within those words.
 
-#### Step 2
-Here is where to upload the screenshots from the lab on Thursday
+### Part 2: Testing and Debugging
+
+We're going to focus on two bugs found in files `ArrayExamples.java` and `ListExamples.java`.
+
+#### Part 2a. ArrayExamples.java
+First, we'll run some tests to make sure that `ArrayExamples.java` runs as intended:
+
+```java
+import static org.junit.Assert.*;
+import java.lang.reflect.Array;
+import org.junit.*;
+
+public class ArrayTests {
+    @Test 
+	public void testReversedLength1() {
+    int[] input1 = { 3 };
+    assertArrayEquals(new int[]{3}, ArrayExamples.reversed(input1));
+	}
+
+    @Test
+    public void testReversedLength2(){
+        int[] input1 = {3,6};
+        assertArrayEquals(new int[]{6,3}, ArrayExamples.reversed(input1));
+    }
+}
+```
+
+After running JUnit, we get the following output on the terminal:
+![ReverseInPlace test failed](testReversed%20failed.png)
+
+By reading the failure output, we can see the main symptom to a bug: the array passed into `reversed` isn't being reversed.
+
+Let's look at `ArrayExamples` to see if we can find our bug:
+![Snippet of code for reversed method](reversedBugged.png)
+
+The array being returned is the input array `arr`, not the reverse array `newArray`! We can fix this by correcting the output:
+
+![Snipped of changed code for reversed method](reversedBugFix.png)
+
+If we run our tests again with this updated code, we should see this:
+![Tests run successfully](testSuccess.png)
+
+We fixed the bug! Now `reversed` should work as intended.
+
+#### Part 2b. ListExamples
+
+For ListExamples, let's run some tests on the `filter` method:
+
+```java
+import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.*;
+
+public class ListTests {
+    @Test
+    public void testFilter(){
+        List<String> input1 = new ArrayList<String>();
+        input1.add("this");
+        input1.add("chair");
+        input1.add("chilled");
+        input1.add("ghost");
+        input1.add("hills");
+
+        List<String> input2 = new ArrayList<String>();
+        input2.add("this");
+        input2.add("chilled");
+        input2.add("hills");
+        assertEquals(input2, ListExamples.filter(input1, new StringCheck()));
+    }
+}
+```
+
+Let's see what we get in our terminal:
+
+![Failure output on testFilter](testFilter%20failed.png)
+
+From our failuer output, it looks like we found our main symptom: the `filter` method works as expected but saves our list in reverse order.
+
+Let's take a look at the code for `filter`:
+
+![Snippet of code for filter](filter-code-snippet.png)
+
+Looking at the [documentation for List methods](https://docs.oracle.com/javase/8/docs/api/java/util/List.html), our implementation of `add` means that every time we add a string, we add it to index 0 of our `result` List.
+
+This means that every new word is added to the beginning of the list, saving them in reverse order instead in the order they appear in the original list.
+
+By removing the 0 parameter in `add`, it should fill `result` in the proper order:
+```java
+static List<String> filter(List<String> list, StringChecker sc) {
+    List<String> result = new ArrayList<>();
+    for(String s: list) {
+      if(sc.checkString(s)) {
+        result.add(s);
+      }
+    }
+    return result;
+  }
+```
+
+After running our test again, we should see this:
+
+![testFilter passes](ListTest-passed.png)
+
+Our test passed! Now our `filter` method works as intended.
