@@ -1,6 +1,6 @@
 ## Lab Report 2 - Testing & Debugging
 
-### What you'll need:
+### What we'll need:
 #### Files
 * [Server.java](Server.java)
 * [ArrayExamples.java](ArrayExamples.java)
@@ -68,7 +68,7 @@ Save the new file in the same directory as `Server.java`, then compile and run t
 * `javac Server.java SearchEngine.java`
 * `java SearchEngine (pick a number between 1024-49151)`
 
-You should see the following on your terminal:
+We should see the following on the terminal:
 ![Terminal showing search engine running on localhost](compile-and-run-searchengine.png)
 
 Now we have a local server running on our computer! This will run in the background on our computer until we cancel the command on the terminal by pressing `CTRL-C`.
@@ -200,7 +200,7 @@ Let's see what we get in our terminal:
 
 ![Failure output on testFilter](testFilter%20failed.png)
 
-From our failuer output, it looks like we found our main symptom: the `filter` method works as expected but saves our list in reverse order.
+From our failure output, it looks like we found our main symptom: the `filter` method works as expected but saves our list in reverse order.
 
 Let's take a look at the code for `filter`:
 
