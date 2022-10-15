@@ -1,6 +1,7 @@
 ## Lab Report 2 - Testing & Debugging
 
-Files we'll need for this report:
+### What you'll need:
+#### Files
 * [Server.java](Server.java)
 * [ArrayExamples.java](ArrayExamples.java)
 * [ListExamples.java](ListExamples.java)
