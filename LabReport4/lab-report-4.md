@@ -1,13 +1,14 @@
 ## Lab Report 4 - Using Vim
 
 ### What we'll need
+
 * [Vim (if not already installed)](https://www.vim.org/download.php)
 
 The focus of this lab was becoming familiar with Vim to make small edits and compare/contrast the editing styles of making local edits against making remote edits.
 
 #### Part 1: Using and Optimizing with Vim
 
-For our exercise with Vim, we are tasked with the simple task of adding a `print` statement between lines 16 and 17: 
+For our exercise with Vim, we are tasked with the simple task of adding a `print` statement between lines 16 and 17:
 ![snippet of code](media/docSearch%20files%20before.png)
 
 However, we are told to make this edit using Vim to streamline the process as much as possible. After optimizing with my partner [Jack Muir](https://jackmuir1.github.io/), we came up with the following commands:
@@ -15,18 +16,18 @@ However, we are told to make this edit using Vim to streamline the process as mu
 * `vim DocSearchServer.java<Enter>` opens the DocSearchServer java file that we need to edit
 
 * `/if<enter>` finds the first instance of the word "if" (in this case, line 16).
-![](media/vim%20slash%20if.png)
+![screenshot of vim, with cursor on line of code starting with "if"](media/vim%20slash%20if.png)
 
 * `<shift>A<enter>` enters visual line mode at the current line (line 16), adds a new line below it, and moves the cursor to it in insert mode.
-![](media/vim%20shift%20a%20enter.png)
+![screenshot of vim, with cursor on blank line after "if"](media/vim%20shift%20a%20enter.png)
 
 * `System.out.println(f.toString() + "is directory");` prints a new message that the file being scanned is a directory.
-![](media/vim%20println.png)
+![screenshot of vim, with cursor on line of print-line code](media/vim%20println.png)
 
 * `<esc>:x<enter>` returns to command mode, saves the new text to the file, and quits Vim
-![](media/vim%20colon%20x.png)
+![screenshot of vim open with command colon-x](media/vim%20colon%20x.png)
 * `sh st<tab> 5012` uses tab autocomplete to run `start.sh`, a script written to compile and run DocSearchServer with the argument
-![](media/vim%20script.png)
+![screenshot of running script](media/vim%20script.png)
 
 #### Part 2: Editing style (Local edits v. Vim)
 

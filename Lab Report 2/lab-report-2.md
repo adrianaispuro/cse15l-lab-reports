@@ -1,7 +1,9 @@
 ## Lab Report 2 - Testing & Debugging
 
-### What we'll need:
+### What we'll need
+
 #### Files
+
 * [Server.java](Server.java)
 * [ArrayExamples.java](ArrayExamples.java)
 * [ListExamples.java](ListExamples.java)
@@ -9,6 +11,7 @@
 ### Part 1: Simplest Search Engine
 
 Create a new file (We'll call ours `SearchEngine.java`) and paste the following code:
+
 ```java
 import java.io.IOException;
 import java.net.URI;
@@ -64,7 +67,9 @@ class Handler implements URLHandler {
         }
     }
 ```
+
 Save the new file in the same directory as `Server.java`, then compile and run the code with the following commands:
+
 * `javac Server.java SearchEngine.java`
 * `java SearchEngine (pick a number between 1024-49151)`
 
@@ -83,15 +88,16 @@ First, let's add some words to our list: We can use the `/add?s=` argument at th
 For example, we can add "tomato" to our list by inserting `/add?s=tomato` to the end of the URL:
 ![Add tomato to word list](search-add.png)
 
-
 The page updates to show that "tomato" was added to our list!
 
 Here's what's happening in the background:
+
 * When we add the `/add?s=tomato` argument to the URL and press `enter`, we pass the new URL to the `handleRequest` method.
 * Within `handleRequest`, the URL catches the if statement looking for `/add` and splits our argument in two: `s` and `tomato`.
 * Then, the second argument (our new word; in this case "tomato") is added to `stringList`; the site updates to show the word was added.
 
 Let's add a couple more words before we make our first query:
+
 * Add "cherry"
 ![Add cherry to word list](search-add-cherry.png)
 
@@ -107,14 +113,14 @@ Let's add a couple more words before we make our first query:
 * Add "think"
 ![Add think to word list](search-add-think.png)
 
-
-Now, let's make our first query; we want to search our word list for every word with "hi" in it. 
+Now, let's make our first query; we want to search our word list for every word with "hi" in it.
 
 For that, we'll replace `/add?s=` with a new argument: `/search?s=hi`.
 
 ![Search query for "hi"](search-query-hi.png)
 
 How `/search?s=hi` works is similar to how `/add` works:
+
 * We update the URL passed to `handleRequest` method.
 * We catch the if statement looking for `/search` in our new URL.
 * The method then splits our argument in two: `s` and any word after `=` (e.g. `hi`).
@@ -128,6 +134,7 @@ Now we set up our simple search engine! We can add as many words as we want, and
 We're going to focus on two bugs found in files `ArrayExamples.java` and `ListExamples.java`.
 
 #### Part 2a. ArrayExamples.java
+
 First, we'll run some tests to make sure that `ArrayExamples.java` runs as intended:
 
 ```java
@@ -137,10 +144,10 @@ import org.junit.*;
 
 public class ArrayTests {
     @Test 
-	public void testReversedLength1() {
+ public void testReversedLength1() {
     int[] input1 = { 3 };
     assertArrayEquals(new int[]{3}, ArrayExamples.reversed(input1));
-	}
+ }
 
     @Test
     public void testReversedLength2(){
@@ -211,6 +218,7 @@ Looking at the [documentation for List methods](https://docs.oracle.com/javase/8
 This means that every new word is added to the beginning of the list, saving them in reverse order instead in the order they appear in the original list.
 
 By removing the 0 parameter in `add`, it should fill `result` in the proper order:
+
 ```java
 static List<String> filter(List<String> list, StringChecker sc) {
     List<String> result = new ArrayList<>();

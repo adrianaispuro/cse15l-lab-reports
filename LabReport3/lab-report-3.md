@@ -1,6 +1,7 @@
 ## Lab Report 3 - Researching Commands
 
-### What we'll need:
+### What we'll need
+
 * [A clone of this directory](https://github.com/ucsd-cse15l-f22/docsearch/)
 * A computer that uses a `bash` terminal (in this case, we'll use a machine on the `ieng6` server)
 
@@ -14,7 +15,7 @@ If we add the command-line flag `-w` to our grep command, the terminal will retu
 
 For example, in `/technical/government`, we'll see how we get different results with `grep` on an entire directory:
 
-```
+```text
 [cs15lfa22ix@ieng6-202]:government:414$ ls
 About_LSC  Alcohol_Problems  Env_Prot_Agen  Gen_Account_Office  Media  Post_Rate_Comm
 
@@ -38,11 +39,12 @@ Media/New_Online_Resources.txt:"We are replacing the older test site with two dy
 Media/Terrorist_Attack.txt:more useful test of future lawyers' potential than rote memory, and
 
 ```
+
 Here we can see that by using `grep` without `-w` includes matches where "test" is a substring within another word; using `grep -w` only returned matches where "test" was a whole word.
 
 We can also use this on single files. In this example, we'll look at `/government/Media/water_fees.txt`:
 
-```
+```text
 [cs15lfa22ix@ieng6-202]:Media:448$ grep vote water_fees.txt | head -5
 
 election. The propertyrelated fee increase requires voter approval
@@ -56,14 +58,16 @@ Irrigation's vote.
 writing. No protest vote means approval of the price jump.
 
 ```
+
 This also works to find the whole-word results of searching for "vote" in the file.
 
 In our last example using `-w`, we can see how using `-w` works with multiple files in a directory:
 
-```
+```text
 [cs15lfa22ix@ieng6-203]:911report:499$ grep -w terror chapter-2.txt chapter-1.txt 
 chapter-2.txt:            "All Americans must recognize that the face of terror is not the true face of Islam,"
 ```
+
 Finding exact matches with `grep -w` can be useful when searching multiple files for specific keywords.
 
 #### Part 2: Using `-c`
@@ -72,15 +76,16 @@ If we use the `-c` with `grep`, the terminal will display the output of the **co
 
 For example, we can count the number of matches of a search term in `technical/plos`:
 
-```
+```text
 [cs15lfa22ix@ieng6-203]:plos:509$ grep -c health journal.pbio.0020052.txt 
 6
 ```
+
 Here, the output is the number of matches found in the file `journal.pbio.0020052.txt`.
 
 We can also combine `-c` with `-w` to find the count of *exact* matches in multiple files:
 
-```
+```text
 [cs15lfa22ix@ieng6-203]:plos:514$ grep -wc health pmed.001002*
 pmed.0010021.txt:1
 pmed.0010022.txt:6
@@ -91,11 +96,12 @@ pmed.0010026.txt:0
 pmed.0010028.txt:0
 pmed.0010029.txt:3
 ```
+
 Here the output shows the number of matches found in each file that matches our `*` pattern.
 
 If we want to get the results of `grep -c` for an entire directory, we can also add `-r` instead of using `*` patterns:
 
-```
+```text
 [cs15lfa22ix@ieng6-203]:technical:532$ grep -rc govern 911report/
 911report/chapter-1.txt:3
 911report/chapter-10.txt:12
@@ -118,14 +124,13 @@ If we want to get the results of `grep -c` for an entire directory, we can also 
 
 This command can be very useful in combination with other commands to quickly find matches with large files without having to print the matching output.
 
-
 #### Part 3: Using `-v`
 
 Another useful option with `grep` is adding the `-v` "inverse search" flag, which finds instances with ***no*** matches to the search term.
 
 For example, let's find the lines in `technical/biomed/rr166.txt` without the lowercase letter 'a':
 
-```
+```text
 [cs15lfa22ix@ieng6-203]:biomed:548$ grep -v a rr166.txt 
 
   
@@ -208,7 +213,7 @@ For example, let's find the lines in `technical/biomed/rr166.txt` without the lo
 
 If we simply want the count of lines that don't have our search term, we can `-vc`, which combines our "inverse search" and "count" command-line options:
 
-```
+```text
 % Let's search how many lines in 'rr167.txt' that do not contain "in"
 cs15lfa22ix@ieng6-203]:biomed:548$ grep -vc in rr167.txt
 347
@@ -216,7 +221,7 @@ cs15lfa22ix@ieng6-203]:biomed:548$ grep -vc in rr167.txt
 
 Finally, we can combine `-vc` with `*` patterns to "inverse search" multiple files and return the count for each file:
 
-```
+```text
 [cs15lfa22ix@ieng6-203]:biomed:549$ grep -vc heal rr*     
 rr166.txt:453
 rr167.txt:726
@@ -228,4 +233,5 @@ rr37.txt:536
 rr73.txt:338
 rr74.txt:426
 ```
+
 I'm not sure where the command `grep -v` would be useful, but it is interesting that there is a command that returns the opposite of what is expected with `grep`.

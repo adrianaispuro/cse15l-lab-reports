@@ -2,19 +2,18 @@
 
 In this lab report, you will learn how to access your `ieng6` account and remotely connect to a computer in the CSE basement.
 
-
 ***
 
 ## What you'll need (and important links)
 
 * [Virtual Studio Code](https://code.visualstudio.com/)
-    - If you don't have it already downloaded, do that now; you'll need it beyond this point in this class. 
+  * If you don't have it already downloaded, do that now; you'll need it beyond this point in this class.
 
 * [UCSD Account Lookup](https://sdacs.ucsd.edu/~icc/index.php)
-    - This is the link to access your student account (including your course-specific accounts)
+  * This is the link to access your student account (including your course-specific accounts)
 
 * [OpenSSH](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui)
-    - For anyone using Windows, you will need to download OpenSSH to make the remote connection since the server only accepts secured connections.
+  * For anyone using Windows, you will need to download OpenSSH to make the remote connection since the server only accepts secured connections.
 
 ***
 
@@ -30,15 +29,13 @@ After the install finishes, open VSCode; your screen should now resemble this: (
 
 ![Visual Studio Code startup page](./vscode%20startup.png)
 
-*** 
+***
 
 ## Step 1.5: Installing OpenSSH (non-Windows users - skip ahead)
 
 For anyone using Windows, you have an extra step: downloading/activating OpenSSH. Click the OpenSSH link above and you'll be taken to a Microsoft page; scroll down to this section and follow the instructions:
 
 ![OpenSSH install instructions !!](./openssh%20install%20instructions.png)
-
-
 
 ***
 
@@ -52,7 +49,7 @@ Enter your login information, then click "Submit Query". If the login succeeded,
 
 ![Account Lookup result page](./account%20lookup%20page.png)
 
-You should notice a clickable button under "Additional Accounts" with text that looks like "`cs15lXXXXXX`". This is your account specifically made for this course. 
+You should notice a clickable button under "Additional Accounts" with text that looks like "`cs15lXXXXXX`". This is your account specifically made for this course.
 
 * The last six characters will differ when you access this page; this screenshot was taken during the Fall 2022 quarter (the `fa22` part) and the last two characters are unique to your account (mine are `ix`).
 
@@ -76,7 +73,7 @@ On <font color = "0c7bdc">your computer</font>, start VSCode and open a new term
 
 In the terminal, type the following command and press `enter`:
 
-``` ssh cs15lxxxxxx@ieng6.ucsd.edu```
+```ssh cs15lxxxxxx@ieng6.ucsd.edu```
 
 * Make sure you type a lowercase L "l", not the number one "1".
 
@@ -85,28 +82,29 @@ The first time you connect to the server, you'll see a warning mentioning "authe
 You should receive a password prompt; enter your password and successfully log in, your screen will fill up with information about usage information that'll look like this:
 
 ![log in output on terminal](/Lab%20Report%201%20Screenshots/ssh%20login%20output.png)
+
 * *Note:* Password prompts will **NOT** show any characters as you type. Even though it looks like nothing's happening, the terminal will log what you type.
 
 * If you run into issues logging into your `ieng6` account, try resetting your `cse15l` account password again and wait 15-30 minutes. If you still have issues, reach out to your professor or TAs.
 
  Otherwise, if you've made it this far, congrats! You connected your terminal to the server; now we can use some commands on the terminal to access files on <font color = "green">the server.</font>
 
-
-
 ***
+
 ## Step 3b: Run Some Commands
 
 Now that you're remotely connected, try running a couple commands on both <font color = "0c7bdc"> your computer's terminal </font> and <font color = "green"> the terminal connected to the server</font>.
 
 Here are a few useful commands you can try:
+
 * `ls`: prints the contents of the current directory (plain text denotes files, blue text denotes directories)
 * `pwd`: prints the path to the current directory
 * `cd PATH`: changes the current directory to the directory at path PATH
 * `cd ~`: returns to the current user's home directory
-* `cp FILEPATH DESTINATIONPATH`: copies the file at FILEPATH to the directory at DESTINATIONPATH 
+* `cp FILEPATH DESTINATIONPATH`: copies the file at FILEPATH to the directory at DESTINATIONPATH
 * `exit`: logs out of `ieng6`
 
-After running some commands, your <font color = "green">terminal</font> should resemble this: 
+After running some commands, your <font color = "green">terminal</font> should resemble this:
 
 ![terminal](./terminal%20commands.png)
 
@@ -117,18 +115,20 @@ After running some commands, your <font color = "green">terminal</font> should r
 Once you've made a remote connection, one of the most powerful things you can learn is how to transfer files between the client (<font color ="0c7bdc">your computer</font>) and <font color = "green">the server</font>. In this step, we'll cover how to use the command `scp`.
 
 On <font color = "0c7bdc"> your computer</font>, create a file and fill it with any text you want;
-for this example, we'll make a Java file called `HelloDateAndTime.java` with the following code: 
+for this example, we'll make a Java file called `HelloDateAndTime.java` with the following code:
+
 ```java
  import java.time.*;
 class HelloDateAndTime {
-	public static void main(String[] args) {
-		System.out.println("Hello World!");
-		System.out.println("OS: " + System.getProperty("os.name"));
-		System.out.println("User name: " + System.getProperty("user.name"));
-		System.out.println("Date and Time: " + java.time.LocalDateTime.now());
-	}
-}	
+ public static void main(String[] args) {
+  System.out.println("Hello World!");
+  System.out.println("OS: " + System.getProperty("os.name"));
+  System.out.println("User name: " + System.getProperty("user.name"));
+  System.out.println("Date and Time: " + java.time.LocalDateTime.now());
+ }
+} 
 ```
+
 Save the file, then open a new <font color = "0c7bdc">terminal</font> on VSCode and run the following command:
 
 `scp HelloDateAndTime.java cs15lXXXXXX@ieng6.ucsd.edu:~/`
@@ -138,6 +138,7 @@ Save the file, then open a new <font color = "0c7bdc">terminal</font> on VSCode 
 You should receive a password prompt; log in as you would with `ssh`. Once the password is entered, you should see something like this:
 
 ![Using scp to upload file](./scp%20command.png)
+
 * I don't have a password prompt because I have a SSH key set up (more on that later)
 
 If you have Java installed, try compiling and running the file and note its output; we'll compare results later.
@@ -146,11 +147,11 @@ Now that my Java file was uploaded, let's log back into <font color = "green">th
 
 ![Terminal now shows my Java file on the server](./scp%20HDAT%20success.png)
 
-Success! Since I made a Java file, let's compile and run the program to see what it prints out: 
+Success! Since I made a Java file, let's compile and run the program to see what it prints out:
 
 ![Java file compiles and runs](./HDAT%20compile%20run%20and%20output.png)
 
-Since we have the file on both <font color="0c7bdc"> the client</font> and <font color="green">the server</font>, compare the results of running the program on both machines. 
+Since we have the file on both <font color="0c7bdc"> the client</font> and <font color="green">the server</font>, compare the results of running the program on both machines.
 
 ***
 
@@ -164,7 +165,7 @@ Whenever we generate `ssh` keys, we actually create a ***pair*** of keys: a *pub
 
 On <font color = "0c7bdc">your computer's terminal</font>, type in the following: `ssh-keygen`
 
-You'll see the terminal fill with text similar to this: 
+You'll see the terminal fill with text similar to this:
 
 ![SSH-keygen process](./ssh%20keygen%20on%20local%20terminal.png)
 
@@ -175,14 +176,16 @@ The terminal will prompt you to enter a path to save the keys to; for this tutor
 * *Extra step for Windows users:* You will need to run additional commands on your computer's terminal to use your private key. Open [this link](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement#user-key-generation), scroll down and run the commands listed here:
 
 ![ssh-agent commands](./windows%20ssh-agent%20commands.png)
+
 * **IMPORTANT NOTE:** On the line with the `ssh-add` command, change `id_ed25519` to `id_rsa`; ED25519 is a different encryption algorithm that we will not cover in this tutorial.
 
 Now that we have our new keys, we need to copy the *public* key to the server.
 
 On the <font color="green">terminal connected to the server</font>, we need to make a new directory to store the public key. Enter the following command:
-`mkdir .ssh` like this: 
+`mkdir .ssh` like this:
 
 ![Make directory on remote terminal](./make%20ssh%20directory%20on%20remote%20terminal.png)
+
 * We already made the directory `.ssh` in this instance; if the directory doesn't exist, the terminal will create it. You can verify this with `ls`.
 
 On the <font color="0c7bdc">terminal on your computer</font>, use `scp` to copy the public key to the directory you just made on the server:
@@ -190,6 +193,3 @@ On the <font color="0c7bdc">terminal on your computer</font>, use `scp` to copy 
 ![copy key from local terminal to remote terminal](./scp%20key%20on%20local%20terminal.png)
 
 If done successfully, you should be able to `scp` and `ssh` without having to enter your password. How convenient!
-
-
-
