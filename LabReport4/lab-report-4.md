@@ -3,12 +3,14 @@
 ### What we'll need
 * [Vim (if not already installed)](https://www.vim.org/download.php)
 
+The focus of this lab was becoming familiar with Vim to make small edits and compare/contrast the editing styles of making local edits against making remote edits.
+
 #### Part 1: Using and Optimizing with Vim
 
 For our exercise with Vim, we are tasked with the simple task of adding a `print` statement between lines 16 and 17: 
 ![snippet of code](media/docSearch%20files%20before.png)
 
-However, we are told to make this edit using Vim to streamline the process as much as possible. After optimizing with my lab partner Jack, we came up with the following commands:
+However, we are told to make this edit using Vim to streamline the process as much as possible. After optimizing with my partner [Jack Muir](https://jackmuir1.github.io/), we came up with the following commands:
 
 * `vim DocSearchServer.java<Enter>` opens the DocSearchServer java file that we need to edit
 
