@@ -9,49 +9,41 @@
 Once we clone the GitHub repository from above, we should see a file called "grade.sh" that contains this code:
 
 ```bash
+# Create your grading script here
 CPATH=".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar"
-
 rm -rf student-submission
 git clone $1 student-submission
-
 echo 'Finished cloning'
 cd student-submission
-
 FILEPATH=`find ./ -name "ListExamples.java"`
 
 if [[ $FILEPATH != "" ]]
-    then
-    echo "File found"
+then
+    echo "File found in $FILEPATH"
     cp $FILEPATH ../
-    else
-    echo "Missing file / file not found"
-    echo "Failed - try again"
+else
+    echo "Failed - Missing file / file not found"
     exit 1
 fi
 
 cd ..
-
 javac -cp $CPATH *.java 2> compile-err.txt
-
 if [[ $? -ne 0 ]]
-
-    then
+then
     echo "Compile error(s)!"
     if [[ `grep "errors" compile-err.txt` -ge 1 ]]
-        then
-            echo "Failed - too many compile errors"
-        else
-            echo "Failed - one compile error"
+    then
+        echo "Failed - multiple compile errors"
+    else
+        echo "Failed - one compile error"
     fi
     cat compile-err.txt
     exit 1
-
-    else
+else
     echo "Compiled successfully"
 fi
 
-java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > test-results.txt 2> test-err.txt
-
+java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > test-results.txt
 if [[ `grep "FAILURES" < test-results.txt` -ne 0 ]]
 then
     echo "Failed - Test(s) failed"
@@ -61,8 +53,6 @@ else
     echo "Passed - all tests run successfully"
     exit 0
 fi
-
-
 ```
 
 This script is important as this enables us to "grade" a repository on our server.
@@ -95,48 +85,49 @@ This submission receives a passing grade, although the file we're grading (`List
 
 For this report, we'll observe a trace of `grade.sh` grading student submission 3.
 
-**Line 4:** `rm -rf student-submission`
+**Line 3:** `rm -rf student-submission`
 
 * No stdout, stderr (command deletes directory)
 * Return code: 0
 
-**Line 5:** `git clone $1 student-submission`
+**Line 4:** `git clone $1 student-submission`
 
 * No stdout, stderr
 * Return code: 0
 
-**Line 8:** ```FILEPATH=`find ./ -name "ListExamples.java"` ```
+**Line 7:** ```FILEPATH=`find ./ -name "ListExamples.java"` ```
 
 * Runs `find` command and assigns result to FILEPATH variable
 * Result: `./pa1/ListExamples.java`
 
-**Lines 11-19:** `if [[ $FILEPATH != "" ]]`
+**Lines 9-16:** `if [[ $FILEPATH != "" ]]`
 
 * If loop checks if `FILEPATH` is not an empty string
 * Condition is true, since `FILEPATH` has a path
 
-**Line 14:** `cp $FILEPATH ../`
+**Line 12:** `cp $FILEPATH ../`
 
 * No stdout, stderr
 * Return code: 0
 
-**Lines 15-18** do not run since the if statement condition is met
+**Lines 14-15** do not run since the if statement condition is met
 
-**Line 23:** `javac -cp $CPATH *.java`
+**Line 19:** `javac -cp $CPATH *.java 2> compile-err.txt`
 
 * No stdout, stderr
 * Return code: 0
 
-**Lines 25-40:** `if [[ $? -ne 0 ]]`
 
-* If loop checks the return code of line 23 is not equal to zero (exit code != 0 means errors)
-* Condition is false, since line 23 has return code of 0
+**Lines 20-33:** `if [[ $? -ne 0 ]]`
 
-**Lines 27-36** are not run since if statement condition is not met
+* If loop checks the return code of `javac` does not equal to zero (exit code != 0 means compile errors)
+* Condition is false, since `javac` has return code of 0
 
-**Line 42:** `java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > test-results.txt`
+**Lines 22-30** are not run since if statement condition is not met
 
-* **_stdout:_**
+**Line 35:** `java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > test-results.txt`
+
+* stdout:
 
 ```bash
 JUnit version 4.13.2
@@ -149,7 +140,7 @@ OK (2 tests)
 * No stderr
 * Return code: 0
 
-**Lines 44-52:**
+**Lines 36-44:**
 
 ```bash
 if [[ `grep "FAILURES" < test-results.txt` -ne 0 ]]
@@ -158,4 +149,4 @@ if [[ `grep "FAILURES" < test-results.txt` -ne 0 ]]
 * If loop checks if "FAILURES" is present in `test-results.txt`, indicating that tests failed
 * Condition is false; since `test-results.txt` does not contain "FAILURES", all tests passed
 
-**Lines 46-48** are not run since if statement condition is not met
+**Lines 38-40** are not run since if statement condition is not met
